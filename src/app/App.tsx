@@ -1,14 +1,18 @@
-import { useEffect } from 'react'
-import './style/style.css'
-import { filmsApi } from '../api/api'
 
+import { Provider } from 'react-redux'
+import './style/style.css'
+import store from '../store/store'
+
+Provider
 const App = () => {
 
-    useEffect(() => {
-        filmsApi.getGenres()
-    }, [])
+
   return (
-    <div>App</div>
+    <>
+        <Provider store={store}>
+            <>Hello world</>
+        </Provider>
+    </>
   )
 }
 
