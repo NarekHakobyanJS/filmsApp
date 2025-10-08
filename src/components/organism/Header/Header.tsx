@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { getAsyncGenres } from '../../../store/slices/genresSlice'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { getAsyncMovies } from '../../../store/slices/moviesSlice'
 
 const Header = () => {
   
@@ -8,10 +9,11 @@ const Header = () => {
     
     const {genres} = useAppSelector((state) => state.genresData)
 
-    console.log(genres);
+   
     
     useEffect(() => {
         disaptch(getAsyncGenres())
+        disaptch(getAsyncMovies())
     }, [])
   return (
     <div>Header</div>
