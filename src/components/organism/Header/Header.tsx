@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { getAsyncGenres } from '../../../store/slices/genresSlice'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 
 const Header = () => {
-    const disaptch = useDispatch<any>()
-    // useSelector((state) => state.)
+  
+    const disaptch = useAppDispatch()
+    
+    const {genres} = useAppSelector((state) => state.genresData)
+
+    console.log(genres);
     
     useEffect(() => {
         disaptch(getAsyncGenres())
