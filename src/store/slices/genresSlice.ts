@@ -1,22 +1,47 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { filmsApi } from "../../api/api";
 
 
-/// Side Effect 
+export const getAsyncGenres = createAsyncThunk(
+    'getAsyncGenres',
+    async () => {
+
+        const response = await filmsApi.getGenres()
+
+        return response.genres
+    }
+)
+
 
 const genresSlice = createSlice({
     name : 'genresSlice',
     initialState : {
-        genres : []
+        genres : [],
+        isLodaing : false
     },
     reducers : {
         getGenres(state, action){
-            // filmsApi.getGenres()
-            state.genres = []
+            state.genres = action.payload
+        },
+        changeIsLoading(state, action){
+            state.isLodaing = action.payload
         }
+    }, 
+    extraReducers : (builder) => {
+        builder.addCase(getAsyncGenres.pending, (state, action) => {
+            state.isLodaing = true;
+        })
+
+        builder.addCase(getAsyncGenres.fulfilled, (state : any, action) => {
+            state.isLodaing = false 
+            state.genres = action.payload
+        })
     }
 })
 
 
-export const {getGenres} = genresSlice.actions
+export const {getGenres, changeIsLoading} = genresSlice.actions
 export default genresSlice.reducer
+
+
+

@@ -2,19 +2,18 @@
 import { Provider, useDispatch } from 'react-redux'
 import './style/style.css'
 import store from '../store/store'
-import { getGenres } from '../store/slices/genresSlice'
+import { getAsyncGenres, getGenres } from '../store/slices/genresSlice'
+import { useEffect } from 'react'
+import Header from '../components/organism/Header/Header'
 
-Provider
+
 const App = () => {
 
-  const dispatch = useDispatch()
 
-
-  dispatch(getGenres)
   return (
     <>
         <Provider store={store}>
-            <>Hello world</>
+            <Header />
         </Provider>
     </>
   )
