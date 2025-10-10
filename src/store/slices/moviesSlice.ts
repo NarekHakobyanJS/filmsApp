@@ -1,8 +1,10 @@
-import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, type PayloadAction} from "@reduxjs/toolkit";
 import { filmsApi } from "../../api/api";
+import type { IGetMoviesResponseType } from "../../api/types";
+import type { IMovie } from "../../shared/types/movie.types";
 
 ////// ThunkCreator 
-export const getAsyncMovies = createAsyncThunk(
+export const getAsyncMovies = createAsyncThunk<IGetMoviesResponseType >(
     'getAsyncMovies',
     async () => {
         const response = await filmsApi.getMovies()
@@ -11,18 +13,23 @@ export const getAsyncMovies = createAsyncThunk(
     }
 )
 
+type MoviesSliceActionType = {
+    movies : IMovie[]
+}
+
+const initialState : MoviesSliceActionType  = {
+    movies : []
+}
 
 const moviesSlice = createSlice({
     name : 'moviesSlice',
-    initialState : {
-        movies : []
-    }, 
+    initialState, 
     reducers : {
 
     },
     extraReducers : (builder) => {
-        builder.addCase(getAsyncMovies.fulfilled, (state : any, action) => {
-            state.movies = action.payload
+        builder.addCase(getAsyncMovies.fulfilled, (state, action : PayloadAction<IGetMoviesResponseType>) => {
+            state.movies = action.payload.results
         })
     }
 })
