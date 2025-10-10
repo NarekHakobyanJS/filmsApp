@@ -1,19 +1,16 @@
+import { Provider } from 'react-redux'
 
-import { Provider, useDispatch } from 'react-redux'
-import './style/style.css'
+import AppRouter from './routes/AppRouter'
 import store from '../store/store'
-import { getAsyncGenres, getGenres } from '../store/slices/genresSlice'
-import { useEffect } from 'react'
-import Header from '../components/organism/Header/Header'
 
-
+import './style/style.css'
 const App = () => {
 
 
   return (
     <>
         <Provider store={store}>
-            <Header />
+           <AppRouter />
         </Provider>
     </>
   )

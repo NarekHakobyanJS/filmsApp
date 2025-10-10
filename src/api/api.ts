@@ -24,6 +24,12 @@ class FilmsAPI {
 
         return response.data
     }
+
+    async getMovie(id : string | undefined){
+        const response = await this.axiosConfig().get(`movie/${id}?api_key=${this.#apiKey}&language=en-US`)
+
+        return response.data
+    }
 }
 
 export const filmsApi = new FilmsAPI()
