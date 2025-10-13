@@ -2,10 +2,12 @@ import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { changePage, getAsyncMovies } from '../../../store/slices/moviesSlice'
 import { NavLink } from 'react-router-dom'
+import FilmCard from '../../organism/FilmCard/FilmCard'
+import { Box, Pagination } from '@mui/material'
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const {movies, page} = useAppSelector((state) => state.moviesData)
+  const { movies, page } = useAppSelector((state) => state.moviesData)
 
   useEffect(() => {
     dispatch(getAsyncMovies(page))
@@ -13,20 +15,31 @@ const Home = () => {
   }, [page])
 
 
-  const changePageAction = () => {
-    dispatch(changePage())
+  const changePageAction = (e : any, newPage : number) => {
+
+    
+    dispatch(changePage(newPage))
   }
   return (
-    <div>
+    <>
 
-      {
-        movies.map((movie) => (
-          <NavLink to={`/${movie.id}`} key={movie.id}>{movie.title}</NavLink>
-        ))
-      }
-
-      <button onClick={changePageAction}>next Page</button>
-    </div>
+      <Pagination 
+      page={page} 
+      onChange={changePageAction}
+      count={100} 
+      color="secondary" />
+      <Box sx={{
+        display : 'flex', 
+        justifyContent : 'space-between',
+        alignItems : 'center',
+        flexWrap : 'wrap',
+        gap : '10px'
+        }}>
+        {
+          movies.map((movie) => <FilmCard key={movie.id} movie={movie} />)
+        }
+      </Box>
+    </>
   )
 }
 

@@ -37,8 +37,8 @@ const moviesSlice = createSlice({
     name : 'moviesSlice',
     initialState, 
     reducers : {
-        changePage(state){
-            state.page = state.page + 1
+        changePage(state, action){
+            state.page = action.payload
         }
     },
     extraReducers : (builder) => {

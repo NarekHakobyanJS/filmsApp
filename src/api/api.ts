@@ -3,7 +3,7 @@ import type { IGetGenresResponseType, IGetMoviesResponseType } from "./types";
 
 class FilmsAPI {
     #baseUrl : undefined | string  = 'https://api.themoviedb.org/3'
-    #apiKey : string = "f36f23edf6e10fd2ddcf939916b1f67a"
+    #apiKey : string = import.meta.env.VITE_API_KEY
     constructor(){
 
     }
@@ -29,6 +29,10 @@ class FilmsAPI {
         const response = await this.axiosConfig().get(`movie/${id}?api_key=${this.#apiKey}&language=en-US`)
 
         return response.data
+    }
+
+    async getMovieByGenre(){
+        // /discover/movie?api_key=${apiKey}&language=en-US&with_genres=${genreId}&page=${1}
     }
 }
 
